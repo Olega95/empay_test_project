@@ -4,20 +4,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   TodoBloc() : super(TodoState()) {
-    on(_onFetchTodos);
-    on(_onRemoveTodo);
-    on(_onCompleteTodo);
+    on(_onFetchTasks);
+    on(_onRemoveTask);
+    on(_onCompleteTask);
+    on(_onRenameTask);
+    on(_onCreateTask);
   }
 
-  _onFetchTodos(FetchTodos event, Emitter<TodoState> emit) {
-    
-  }
+  _onFetchTasks(FetchTasks event, Emitter<TodoState> emit) {}
 
-  _onRemoveTodo(RemoveTodo event, Emitter<TodoState> emit) {
-    
-  }
+  _onRemoveTask(RemoveTask event, Emitter<TodoState> emit) {}
 
-  _onCompleteTodo(CompleteTodo event, Emitter<TodoState> emit) {
-    
-  }
+  _onCompleteTask(CompleteTask event, Emitter<TodoState> emit) {}
+
+  _onRenameTask(RenameTask event, Emitter<TodoState> emit) {}
+
+  _onCreateTask(CreateTask event, Emitter<TodoState> emit) {}
 }

@@ -16,9 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TodoState {
-  List<Todo> get allTodos => throw _privateConstructorUsedError;
-  List<Todo> get activeTodos => throw _privateConstructorUsedError;
-  List<Todo> get completedTodos => throw _privateConstructorUsedError;
+  List<Task> get allTodos => throw _privateConstructorUsedError;
+  List<Task> get activeTodos => throw _privateConstructorUsedError;
+  List<Task> get completedTodos => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TodoStateCopyWith<TodoState> get copyWith =>
@@ -31,7 +31,7 @@ abstract class $TodoStateCopyWith<$Res> {
       _$TodoStateCopyWithImpl<$Res, TodoState>;
   @useResult
   $Res call(
-      {List<Todo> allTodos, List<Todo> activeTodos, List<Todo> completedTodos});
+      {List<Task> allTodos, List<Task> activeTodos, List<Task> completedTodos});
 }
 
 /// @nodoc
@@ -55,15 +55,15 @@ class _$TodoStateCopyWithImpl<$Res, $Val extends TodoState>
       allTodos: null == allTodos
           ? _value.allTodos
           : allTodos // ignore: cast_nullable_to_non_nullable
-              as List<Todo>,
+              as List<Task>,
       activeTodos: null == activeTodos
           ? _value.activeTodos
           : activeTodos // ignore: cast_nullable_to_non_nullable
-              as List<Todo>,
+              as List<Task>,
       completedTodos: null == completedTodos
           ? _value.completedTodos
           : completedTodos // ignore: cast_nullable_to_non_nullable
-              as List<Todo>,
+              as List<Task>,
     ) as $Val);
   }
 }
@@ -76,7 +76,7 @@ abstract class _$$_TodoStateCopyWith<$Res> implements $TodoStateCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {List<Todo> allTodos, List<Todo> activeTodos, List<Todo> completedTodos});
+      {List<Task> allTodos, List<Task> activeTodos, List<Task> completedTodos});
 }
 
 /// @nodoc
@@ -98,15 +98,15 @@ class __$$_TodoStateCopyWithImpl<$Res>
       allTodos: null == allTodos
           ? _value._allTodos
           : allTodos // ignore: cast_nullable_to_non_nullable
-              as List<Todo>,
+              as List<Task>,
       activeTodos: null == activeTodos
           ? _value._activeTodos
           : activeTodos // ignore: cast_nullable_to_non_nullable
-              as List<Todo>,
+              as List<Task>,
       completedTodos: null == completedTodos
           ? _value._completedTodos
           : completedTodos // ignore: cast_nullable_to_non_nullable
-              as List<Todo>,
+              as List<Task>,
     ));
   }
 }
@@ -115,35 +115,35 @@ class __$$_TodoStateCopyWithImpl<$Res>
 
 class _$_TodoState implements _TodoState {
   _$_TodoState(
-      {final List<Todo> allTodos = const [],
-      final List<Todo> activeTodos = const [],
-      final List<Todo> completedTodos = const []})
+      {final List<Task> allTodos = const [],
+      final List<Task> activeTodos = const [],
+      final List<Task> completedTodos = const []})
       : _allTodos = allTodos,
         _activeTodos = activeTodos,
         _completedTodos = completedTodos;
 
-  final List<Todo> _allTodos;
+  final List<Task> _allTodos;
   @override
   @JsonKey()
-  List<Todo> get allTodos {
+  List<Task> get allTodos {
     if (_allTodos is EqualUnmodifiableListView) return _allTodos;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_allTodos);
   }
 
-  final List<Todo> _activeTodos;
+  final List<Task> _activeTodos;
   @override
   @JsonKey()
-  List<Todo> get activeTodos {
+  List<Task> get activeTodos {
     if (_activeTodos is EqualUnmodifiableListView) return _activeTodos;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_activeTodos);
   }
 
-  final List<Todo> _completedTodos;
+  final List<Task> _completedTodos;
   @override
   @JsonKey()
-  List<Todo> get completedTodos {
+  List<Task> get completedTodos {
     if (_completedTodos is EqualUnmodifiableListView) return _completedTodos;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_completedTodos);
@@ -182,16 +182,16 @@ class _$_TodoState implements _TodoState {
 
 abstract class _TodoState implements TodoState {
   factory _TodoState(
-      {final List<Todo> allTodos,
-      final List<Todo> activeTodos,
-      final List<Todo> completedTodos}) = _$_TodoState;
+      {final List<Task> allTodos,
+      final List<Task> activeTodos,
+      final List<Task> completedTodos}) = _$_TodoState;
 
   @override
-  List<Todo> get allTodos;
+  List<Task> get allTodos;
   @override
-  List<Todo> get activeTodos;
+  List<Task> get activeTodos;
   @override
-  List<Todo> get completedTodos;
+  List<Task> get completedTodos;
   @override
   @JsonKey(ignore: true)
   _$$_TodoStateCopyWith<_$_TodoState> get copyWith =>

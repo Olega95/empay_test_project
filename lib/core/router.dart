@@ -1,6 +1,6 @@
 import 'package:empay_test_project/features/biometric/presentation/screens/passcode_screen.dart';
-import 'package:empay_test_project/features/todos/presentation/screens/add_todo.dart';
-import 'package:empay_test_project/features/todos/presentation/screens/todos_screen.dart';
+import 'package:empay_test_project/features/todos/presentation/screens/add_task_screen.dart';
+import 'package:empay_test_project/features/todos/presentation/screens/tasks_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
@@ -19,7 +19,7 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 class AppRouter {
   static const root = '/';
   static const passcodeScreen = '/passcodeScreen';
-  static const addTodo = 'addTodo';
+  static const addTask = 'addTask';
 
   final GoRouter router;
 
@@ -33,12 +33,12 @@ class AppRouter {
       GoRoute(
         path: root,
         name: root,
-        builder: (context, state) => const TodosScreen(),
+        builder: (context, state) => const TasksScreen(),
         routes: [
           GoRoute(
-            path: addTodo,
-            name: addTodo,
-            builder: (context, state) => const AddTodoScreen(),
+            path: addTask,
+            name: addTask,
+            builder: (context, state) => const AddTaskScreen(),
           ),
         ],
       ),

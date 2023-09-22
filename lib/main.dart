@@ -1,5 +1,7 @@
 import 'package:empay_test_project/core/router.dart';
+import 'package:empay_test_project/features/todos/presentation/bloc/todo_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(const EmpayTest());
@@ -10,14 +12,20 @@ class EmpayTest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Empay Test',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-
-        useMaterial3: true,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => TodoBloc(),
+        ),
+      ],
+      child: MaterialApp.router(
+        title: 'Empay Test',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: false,
+        ),
+        routerConfig: AppRouter().router,
       ),
-      routerConfig: AppRouter().router,
     );
   }
 }

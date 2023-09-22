@@ -1,15 +1,27 @@
 abstract class TodoEvent {}
 
-class FetchTodos extends TodoEvent {}
+class FetchTasks extends TodoEvent {}
 
-class RemoveTodo extends TodoEvent {
+class RemoveTask extends TodoEvent {
   final int id;
 
-  RemoveTodo({required this.id});
+  RemoveTask({required this.id});
 }
 
-class CompleteTodo extends TodoEvent {
+class CompleteTask extends TodoEvent {
   final int id;
 
-  CompleteTodo({required this.id});
+  CompleteTask({required this.id});
+}
+
+class RenameTask extends TodoEvent {
+  final int id;
+
+  RenameTask({required this.id});
+}
+
+class CreateTask extends TodoEvent {
+  final String title;
+
+  CreateTask({required this.title});
 }
