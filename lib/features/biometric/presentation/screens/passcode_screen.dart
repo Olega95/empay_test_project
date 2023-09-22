@@ -1,8 +1,13 @@
 import 'dart:io';
 
 import 'package:empay_test_project/core/router.dart';
+import 'package:empay_test_project/features/biometric/domain/repositories/passcode_repository_impl.dart';
+import 'package:empay_test_project/features/biometric/presentation/bloc/passcode_bloc.dart';
+import 'package:empay_test_project/features/biometric/presentation/bloc/passcode_event.dart';
+import 'package:empay_test_project/features/biometric/presentation/bloc/passcode_state.dart';
 import 'package:empay_test_project/features/biometric/presentation/widgets/virtual_pin_keyboard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_auth/local_auth.dart';
 
@@ -24,16 +29,24 @@ class _PasscodeScreenState extends State<PasscodeScreen> {
   }
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() async {
     super.didChangeDependencies();
+    final repo = PasscodeRepositoryImpl();
+    final pin = await repo.getPasscode();
     _controller.addListener(() {
       setState(() {
         _passcode = _controller.text;
       });
-
-      if (_controller.text.length == 4) {
-        print(_passcode);
-        context.pushReplacementNamed(AppRouter.root);
+      if (context.mounted) {
+        if (_passcode.length == 4) {
+          if (pin == null) {
+            context.read<PasscodeBloc>().add(SavePasscode(passcode: _passcode));
+          } else {
+            context
+                .read<PasscodeBloc>()
+                .add(CheckPasscode(passcode: _passcode));
+          }
+        }
       }
     });
   }
@@ -50,62 +63,37 @@ class _PasscodeScreenState extends State<PasscodeScreen> {
       appBar: AppBar(
         title: const Text('Passcode'),
       ),
-      body: Stack(
-        children: [
-          Align(
-            alignment: const Alignment(0, -0.1),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(
-                  width: 146,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CircleAvatar(
-                        radius: 7,
-                        backgroundColor: _passcode.isNotEmpty
-                            ? Colors.blueAccent
-                            : Colors.grey,
-                      ),
-                      CircleAvatar(
-                        radius: 7,
-                        backgroundColor: _passcode.length > 1
-                            ? Colors.blueAccent
-                            : Colors.grey,
-                      ),
-                      CircleAvatar(
-                        radius: 7,
-                        backgroundColor: _passcode.length > 2
-                            ? Colors.blueAccent
-                            : Colors.grey,
-                      ),
-                      CircleAvatar(
-                        radius: 7,
-                        backgroundColor: _passcode.length > 3
-                            ? Colors.blueAccent
-                            : Colors.grey,
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 58),
-                VirtualPinKeyboard(
+      body: BlocConsumer<PasscodeBloc, PasscodeState>(
+        builder: (context, state) {
+          return Stack(
+            children: [
+              Align(
+                alignment: const Alignment(0, -0.1),
+                child: VirtualPinKeyboard(
                   controller: _controller,
+                  isFailure: state is Failure,
                   biometricType: Platform.isAndroid
                       ? BiometricType.fingerprint
                       : BiometricType.face,
                   onTapBiometric: () async {
-                    final LocalAuthentication auth = LocalAuthentication();
-                    await auth.authenticate(
-                      localizedReason: 'Reason',
-                    );
+                    if (context.mounted) {
+                      context
+                          .read<PasscodeBloc>()
+                          .add(AuthenticateWithBiometric());
+                    }
                   },
-                )
-              ],
-            ),
-          )
-        ],
+                ),
+              ),
+            ],
+          );
+        },
+        listener: (BuildContext context, PasscodeState state) {
+          if (state is Success) {
+            context.pushReplacementNamed(AppRouter.root);
+          } else if (state is Failure) {
+            _controller.clear();
+          }
+        },
       ),
     );
   }
