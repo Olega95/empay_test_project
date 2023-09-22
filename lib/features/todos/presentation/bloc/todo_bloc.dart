@@ -10,7 +10,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   _onFetchTodos(FetchTodos event, Emitter<TodoState> emit) {
-
+    
   }
 
   _onRemoveTodo(RemoveTodo event, Emitter<TodoState> emit) {

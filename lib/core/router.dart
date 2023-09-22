@@ -1,0 +1,52 @@
+import 'package:empay_test_project/features/biometric/presentation/screens/passcode_screen.dart';
+import 'package:empay_test_project/features/todos/presentation/screens/add_todo.dart';
+import 'package:empay_test_project/features/todos/presentation/screens/todos_screen.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:go_router/go_router.dart';
+
+final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+
+// extension AppRouterX on BuildContext {
+//   void goLocation(String location, {Object? extra}) => go(
+//       '${GoRouter.of(this).routeInformationProvider.value.location!}/$location',
+//       extra: extra);
+//   void pushLocation(String location, {Object? extra}) => push(
+//       '${GoRouter.of(this).routeInformationProvider.value.location!}/$location',
+//       extra: extra);
+// }
+
+class AppRouter {
+  static const root = '/';
+  static const passcodeScreen = '/passcodeScreen';
+  static const addTodo = 'addTodo';
+
+  final GoRouter router;
+
+  AppRouter() : router = _router;
+
+  static final GoRouter _router = GoRouter(
+    debugLogDiagnostics: true,
+    navigatorKey: _rootNavigatorKey,
+    initialLocation: passcodeScreen,
+    routes: [
+      GoRoute(
+        path: root,
+        name: root,
+        builder: (context, state) => const TodosScreen(),
+        routes: [
+          GoRoute(
+            path: addTodo,
+            name: addTodo,
+            builder: (context, state) => const AddTodoScreen(),
+          ),
+        ],
+      ),
+      GoRoute(
+        path: passcodeScreen,
+        name: passcodeScreen,
+        builder: (context, state) => const PasscodeScreen(),
+      ),
+    ],
+  );
+}
