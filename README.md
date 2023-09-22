@@ -1,16 +1,25 @@
 # empay_test_project
 
-A new Flutter project.
+Empay test project
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+1. flutter pub get
+2. A local server was used for development, so the baseUrl is local.
+In order to connect to a remote server, you need to go to the path lib/core/dio/rest_client and on line 8 change the baseUrl parameter, changing it to the url of the remote server.
+3. flutter pub run build_runner build --delete-conflicting-outputs
+4. flutter run --release --no-tree-shake-icons
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+Build application in release mode
+```shell
+flutter build apk --release --no-tree-shake-icons
+flutter build ipa --release --no-tree-shake-icons
+```
+
+Run application in release mode
+```shell
+flutter run --release --no-tree-shake-icons
+```

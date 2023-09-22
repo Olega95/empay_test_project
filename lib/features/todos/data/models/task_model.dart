@@ -7,9 +7,9 @@ part 'task_model.g.dart';
 @freezed
 class TaskModel extends Task with _$TaskModel {
   factory TaskModel(
-      {required int id,
+      {int? id,
       required String title,
-      required bool completed}) = _TaskModel;
+      @Default(false) bool completed}) = _TaskModel;
 
   factory TaskModel.fromJson(Map<String, dynamic> json) =>
       _$TaskModelFromJson(json);

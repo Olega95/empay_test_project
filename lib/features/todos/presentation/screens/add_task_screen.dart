@@ -6,8 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class AddTaskScreen extends StatefulWidget {
-  final Task? task;
-  const AddTaskScreen({super.key, this.task});
+  const AddTaskScreen({super.key});
 
   @override
   State<AddTaskScreen> createState() => _AddTaskScreenState();
@@ -19,7 +18,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
   @override
   void initState() {
-    _controller = TextEditingController(text: widget.task?.title)
+    _controller = TextEditingController()
       ..addListener(() {
         setState(() {});
       });
@@ -51,15 +50,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     isError = true;
                   });
                 } else {
-                  if (widget.task != null) {
-                    context
-                        .read<TodoBloc>()
-                        .add(RenameTask(id: widget.task!.id));
-                  } else {
-                    context
-                        .read<TodoBloc>()
-                        .add(CreateTask(title: _controller.text));
-                  }
+                  context
+                      .read<TodoBloc>()
+                      .add(CreateTask(title: _controller.text));
                   context.pop();
                 }
               },

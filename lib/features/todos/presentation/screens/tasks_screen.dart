@@ -1,5 +1,7 @@
 import 'package:empay_test_project/core/router.dart';
+import 'package:empay_test_project/core/utils/extensions.dart';
 import 'package:empay_test_project/features/todos/presentation/bloc/todo_bloc.dart';
+import 'package:empay_test_project/features/todos/presentation/bloc/todo_event.dart';
 import 'package:empay_test_project/features/todos/presentation/bloc/todo_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +15,12 @@ class TasksScreen extends StatefulWidget {
 }
 
 class _TasksScreenState extends State<TasksScreen> {
+  @override
+  void didChangeDependencies() {
+    context.read<TodoBloc>().add(FetchTasks());
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -45,22 +53,52 @@ class _TasksScreenState extends State<TasksScreen> {
         ),
         body: BlocBuilder<TodoBloc, TodoState>(
           builder: (context, state) {
+            final active =
+                state.tasks.where((element) => !element.completed).toList();
+            final completed =
+                state.tasks.where((element) => element.completed).toList();
             return TabBarView(
               children: [
                 ListView.separated(
-                  itemBuilder: (context, index) => ListTile(),
+                  padding: EdgeInsets.only(
+                    top: 30,
+                    bottom: context.height * 0.12,
+                    left: 5,
+                    right: 5,
+                  ),
+                  itemBuilder: (context, index) => ListTile(
+                    title: Text(state.tasks[index].title),
+                    trailing: InkResponse(
+                      onTap: () {
+                        context
+                            .read<TodoBloc>()
+                            .add(CompleteTask(task: state.tasks[index]));
+                      },
+                      child: Icon(
+                        state.tasks[index].completed
+                            ? Icons.check_circle
+                            : Icons.circle,
+                        size: 30,
+                        color: Colors.deepPurple,
+                      ),
+                    ),
+                  ),
                   separatorBuilder: (context, index) => Divider(),
-                  itemCount: state.allTodos.length,
+                  itemCount: state.tasks.length,
                 ),
                 ListView.separated(
-                  itemBuilder: (context, index) => ListTile(),
+                  itemBuilder: (context, index) => ListTile(
+                    title: Text(active[index].title),
+                  ),
                   separatorBuilder: (context, index) => Divider(),
-                  itemCount: state.activeTodos.length,
+                  itemCount: active.length,
                 ),
                 ListView.separated(
-                  itemBuilder: (context, index) => ListTile(),
+                  itemBuilder: (context, index) => ListTile(
+                    title: Text(completed[index].title),
+                  ),
                   separatorBuilder: (context, index) => Divider(),
-                  itemCount: state.completedTodos.length,
+                  itemCount: completed.length,
                 ),
               ],
             );

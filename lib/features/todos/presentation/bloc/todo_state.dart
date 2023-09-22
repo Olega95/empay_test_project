@@ -6,8 +6,6 @@ part 'todo_state.freezed.dart';
 @Freezed(copyWith: true)
 class TodoState with _$TodoState {
   factory TodoState({
-    @Default([]) List<Task> allTodos,
-    @Default([]) List<Task> activeTodos,
-    @Default([]) List<Task> completedTodos,
+    @Default([]) List<Task> tasks,
   }) = _TodoState;
 }

@@ -20,7 +20,7 @@ TaskModel _$TaskModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TaskModel {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   bool get completed => throw _privateConstructorUsedError;
 
@@ -35,7 +35,7 @@ abstract class $TaskModelCopyWith<$Res> {
   factory $TaskModelCopyWith(TaskModel value, $Res Function(TaskModel) then) =
       _$TaskModelCopyWithImpl<$Res, TaskModel>;
   @useResult
-  $Res call({int id, String title, bool completed});
+  $Res call({int? id, String title, bool completed});
 }
 
 /// @nodoc
@@ -51,15 +51,15 @@ class _$TaskModelCopyWithImpl<$Res, $Val extends TaskModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? title = null,
     Object? completed = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -79,7 +79,7 @@ abstract class _$$_TaskModelCopyWith<$Res> implements $TaskModelCopyWith<$Res> {
       __$$_TaskModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String title, bool completed});
+  $Res call({int? id, String title, bool completed});
 }
 
 /// @nodoc
@@ -93,15 +93,15 @@ class __$$_TaskModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? title = null,
     Object? completed = null,
   }) {
     return _then(_$_TaskModel(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -117,17 +117,17 @@ class __$$_TaskModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_TaskModel implements _TaskModel {
-  _$_TaskModel(
-      {required this.id, required this.title, required this.completed});
+  _$_TaskModel({this.id, required this.title, this.completed = false});
 
   factory _$_TaskModel.fromJson(Map<String, dynamic> json) =>
       _$$_TaskModelFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
   final String title;
   @override
+  @JsonKey()
   final bool completed;
 
   @override
@@ -166,15 +166,15 @@ class _$_TaskModel implements _TaskModel {
 
 abstract class _TaskModel implements TaskModel {
   factory _TaskModel(
-      {required final int id,
+      {final int? id,
       required final String title,
-      required final bool completed}) = _$_TaskModel;
+      final bool completed}) = _$_TaskModel;
 
   factory _TaskModel.fromJson(Map<String, dynamic> json) =
       _$_TaskModel.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
   String get title;
   @override

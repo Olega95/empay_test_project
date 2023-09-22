@@ -1,3 +1,5 @@
+import 'package:empay_test_project/features/todos/domain/entities/task.dart';
+
 abstract class TodoEvent {}
 
 class FetchTasks extends TodoEvent {}
@@ -9,16 +11,11 @@ class RemoveTask extends TodoEvent {
 }
 
 class CompleteTask extends TodoEvent {
-  final int id;
+  final Task task;
 
-  CompleteTask({required this.id});
+  CompleteTask({required this.task});
 }
 
-class RenameTask extends TodoEvent {
-  final int id;
-
-  RenameTask({required this.id});
-}
 
 class CreateTask extends TodoEvent {
   final String title;
